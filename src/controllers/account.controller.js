@@ -12,8 +12,8 @@ const getAllAccounts = async (req, res) => {
 const getAccountById = async (req, res) => {
     const { id } = req.params
     try {
-        const accounts = await AccountService.getAccountById(id);
-        res.status(200).json(accounts);
+        const account = await AccountService.getAccountById(id);
+        res.status(200).json(account);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

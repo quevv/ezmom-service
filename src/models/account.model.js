@@ -5,11 +5,11 @@ const AccountRoles = require('../enum/roles');
 class Account extends Model { }
 
 Account.init({
-    account_id: {
+    accountId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        field: 'account_id'  // Map the model attribute to the database column
+        field: 'account_id'
     },
     name: {
         type: DataTypes.STRING,
@@ -19,9 +19,10 @@ Account.init({
         type: DataTypes.STRING,
         allowNull: true,
     },
-    phone_number: {
+    phoneNumber: {
         type: DataTypes.STRING,
         allowNull: true,
+        field: 'phone_number'
     },
     email: {
         type: DataTypes.STRING,
