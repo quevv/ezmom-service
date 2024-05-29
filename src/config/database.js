@@ -12,7 +12,7 @@ const sequelize = new Sequelize(process.env.DATABASE, process.env.DB_USER, proce
         idle: parseInt(process.env.DB_IDLE_TIMEOUT, 10),
         acquire: parseInt(process.env.DB_CONNECTION_TIMEOUT, 10)
     },
-    logging: false
+    // logging: false
 });
 
 module.exports = sequelize;

@@ -1,8 +1,13 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../config/database');
 const AccountRoles = require('../enum/roles');
+const bcrypt = require('bcrypt')
 
-class Account extends Model { }
+class Account extends Model {
+    async comparePassword(password) {
+        return await bcrypt.compare(password, this.password);
+    }
+}
 
 Account.init({
     accountId: {
@@ -55,6 +60,20 @@ Account.init({
     sequelize,
     modelName: 'Account',
     tableName: 'account',
+    hooks: {
+        beforeCreate: async (account) => {
+            if (account.password) {
+                const salt = await bcrypt.genSalt(10);
+                account.password = await bcrypt.hash(account.password, salt);
+            }
+        },
+        beforeUpdate: async (account) => {
+            if (account.password) {
+                const salt = await bcrypt.genSalt(10);
+                account.password = await bcrypt.hash(account.password, salt);
+            }
+        }
+    }
 });
 
 module.exports = Account;

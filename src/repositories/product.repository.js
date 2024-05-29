@@ -35,6 +35,38 @@ class ProductRepository {
         }
     }
 
+    static async getProductsByBrand(id, params) {
+        try {
+            const { search, filter, sort, page = 1, pageSize = 10 } = params;
+
+            const whereClause = {};
+            if (search) {
+                whereClause[Op.or] = [
+                    { name: { [Op.iLike]: `%${search}%` } },
+                    { description: { [Op.iLike]: `%${search}%` } }
+                ];
+            }
+
+            if (filter) {
+                Object.assign(whereClause, filter);
+            }
+
+            const options = {
+                where: [{ brand_id: id }, whereClause],
+                include: [{ model: Brand, as: 'brand' }],
+                order: sort ? [sort] : [['createdAt', 'ASC']],
+                offset: (page - 1) * pageSize,
+                limit: pageSize,
+            };
+
+            const { count, rows } = await Product.findAndCountAll(options);
+
+            return { products: rows, total: count };
+        } catch (error) {
+            throw new Error(error.message)
+        }
+    }
+
     static async getProductById(id) {
         try {
             const product = await Product.findByPk(

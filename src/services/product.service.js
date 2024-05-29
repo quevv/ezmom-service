@@ -10,6 +10,14 @@ class ProductService {
         }
     }
 
+    static async getProductsByBrand(id, params) {
+        try {
+            return await ProductRepository.getProductsByBrand(id, params)
+        } catch (error) {
+            throw new Error('Error fetching products: ' + error.message);
+        }
+    }
+
     static async getProductById(id) {
         try {
             const product = await ProductRepository.getProductById(id);

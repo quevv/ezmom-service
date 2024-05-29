@@ -20,6 +20,25 @@ const getAllProducts = async (req, res) => {
     }
 }
 
+const getProductsByBrand = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { search, filter, sort, page, pageSize } = req.query;
+        const params = {
+            search: search || undefined,
+            filter: filter ? JSON.parse(filter) : undefined,
+            sort: sort ? JSON.parse(sort) : undefined,
+            page: page ? parseInt(page, 10) : 1,
+            pageSize: pageSize ? parseInt(pageSize, 10) : 10,
+        };
+
+        const { products, total } = await ProductService.getProductsByBrand(id, params);
+        res.status(200).json({ msg: "Fetching products by Brand success!", products, total })
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+}
+
 const getProductById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -94,13 +113,14 @@ const deleteProduct = async (req, res) => {
             res.status(200).json({ msg: "Delete product success" });
     }
     catch (error) {
-        res.status(500).json(error.message);
+        res.status(500).json({ error: error.message });
     }
 }
 
 module.exports = {
     getAllProducts,
     getProductById,
+    getProductsByBrand,
     createProduct,
     updateProduct,
     deleteProduct,
