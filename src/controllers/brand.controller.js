@@ -22,7 +22,7 @@ const getAllBrands = async (req, res) => {
 const getBrandById = async (req, res) => {
     const { id } = req.params;
     try {
-        const brand = await BrandService.getBrandbyId(id);
+        const brand = await BrandService.getBrandById(id);
         res.status(200).json(brand);
     } catch (error) {
         res.status(500).json({ error: error.message });

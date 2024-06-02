@@ -33,7 +33,7 @@ class BrandRepository {
         }
     }
 
-    static async getBrandbyId(id) {
+    static async getBrandById(id) {
         try {
             const brand = await Brand.findByPk(id);
             if (brand) {

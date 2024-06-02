@@ -10,9 +10,9 @@ class BrandService {
         }
     }
 
-    static async getBrandbyId(id) {
+    static async getBrandById(id) {
         try {
-            const brand = await BrandRepository.getBrandbyId(id);
+            const brand = await BrandRepository.getBrandById(id);
             return brand;
         } catch (error) {
             throw new Error('Error fetching brand: ' + error.message);

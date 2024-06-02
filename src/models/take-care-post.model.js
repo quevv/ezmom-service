@@ -39,7 +39,7 @@ TakeCarePost.init({
     sequelize,
     modelName: 'TakeCarePost',
     tableName: 'take_care_post',
-    timestamps: true // Automatically adds createdAt and updatedAt fields
+    timestamps: true
 });
 
 module.exports = TakeCarePost;

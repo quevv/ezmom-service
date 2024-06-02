@@ -1,12 +1,12 @@
-const GrowthPathController = require('../controllers/growth-path.controller');
+const growthPathController = require('../controllers/growth-path.controller');
 const router = require('express').Router()
 
-router.get("/getAll", GrowthPathController.getAllGrowthPaths);
-router.get("/getById/:id", GrowthPathController.getGrowthPathById);
-router.get("/getPostsByGrowthPath/:growthPathId", GrowthPathController.getPostsByGrowthPath);
-router.post("/create", GrowthPathController.createGrowthPath);
-router.put("/update/:id", GrowthPathController.updateGrowthPath);
-router.delete("/delete/:id", GrowthPathController.deleteGrowthPath);
+router.get("/getAll", growthPathController.getAllGrowthPaths);
+router.get("/getById/:id", growthPathController.getGrowthPathById);
+router.get("/getPostsByGrowthPath/:growthPathId", growthPathController.getPostsByGrowthPath);
+router.post("/create", growthPathController.createGrowthPath);
+router.put("/update/:id", growthPathController.updateGrowthPath);
+router.delete("/delete/:id", growthPathController.deleteGrowthPath);
 
 
 module.exports = router;

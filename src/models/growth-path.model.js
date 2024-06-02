@@ -43,6 +43,6 @@ GrowthPath.init({
     modelName: 'GrowthPath',
     tableName: 'growth_path',
     timestamps: false,
-})
+});
 
 module.exports = GrowthPath;
