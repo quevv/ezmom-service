@@ -15,6 +15,8 @@ app.use('/api/auth', apiRoutes.AuthRoutes);
 app.use('/api/brand', apiRoutes.BrandRoutes);
 app.use('/api/product', apiRoutes.ProductRoutes);
 app.use('/api/baby', apiRoutes.BabyRoutes);
+app.use('/api/grow-path', apiRoutes.GrowthPathRoutes);
+app.use('/api/take-care-post', apiRoutes.PostRoutes);
 
 
 

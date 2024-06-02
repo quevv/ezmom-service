@@ -146,6 +146,7 @@ class ProductRepository {
             throw new Error(error.message);
         }
     }
+
 }
 
 module.exports = ProductRepository;
