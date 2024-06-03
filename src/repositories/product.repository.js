@@ -1,11 +1,13 @@
 const Brand = require('../models/brand.model');
 const Product = require('../models/product.model');
-const { Op } = require('sequelize');
+const { Op, where } = require('sequelize');
+const RecommendedProduct = require('../models/recommended-product.model');
+const Milestone = require('../models/milestone.model');
 
 class ProductRepository {
     static async getAllProducts(params) {
         try {
-            const { search, filter, sort, page = 1, pageSize = 10 } = params;
+            const { search, milestoneId, filter, sort, page = 1, pageSize = 10 } = params;
 
             const whereClause = {};
             if (search) {
@@ -21,12 +23,22 @@ class ProductRepository {
 
             const options = {
                 where: whereClause,
-                include: [{ model: Brand, as: 'brand' }],
+                include: [
+                    {
+                        model: Brand,
+                        as: 'brand',
+                    },
+                    {
+                        model: Milestone,
+                        as: 'Milestones',
+                        where: milestoneId ? { milestoneId } : {}
+                    }
+                ],
                 order: sort ? [sort] : [['createdAt', 'ASC']],
                 offset: (page - 1) * pageSize,
                 limit: pageSize,
             };
-
+            console.log(options);
             const { count, rows } = await Product.findAndCountAll(options);
 
             return { products: rows, total: count };
@@ -50,7 +62,6 @@ class ProductRepository {
             if (filter) {
                 Object.assign(whereClause, filter);
             }
-
             const options = {
                 where: [{ brand_id: id }, whereClause],
                 include: [{ model: Brand, as: 'brand' }],
@@ -78,6 +89,10 @@ class ProductRepository {
                             as: 'brand',
                             required: false,
                             attributes: ['brandId', 'name', 'description'],
+                        },
+                        {
+                            model: Milestone,
+                            as: 'Milestones',
                         }
                     ],
                     attributes: { exclude: ['brand_id'] },
