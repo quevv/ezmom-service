@@ -30,6 +30,10 @@ Product.init({
         validate: {
             isInt: {
                 msg: 'Must be an integer number!'
+            },
+            min: {
+                args: [1],
+                msg: 'Must be a positive number!'
             }
         }
     },
@@ -39,6 +43,10 @@ Product.init({
         validate: {
             isDecimal: {
                 msg: 'Must be an decimal number!'
+            },
+            min: {
+                args: [0.01],
+                msg: 'Must be a positive number!'
             }
         }
     },
@@ -77,7 +85,5 @@ Product.init({
     tableName: 'product',
     timestamps: false,
 });
-
-Product.belongsTo(Brand, { foreignKey: 'brandId', as: 'brand' });
 
 module.exports = Product;

@@ -1,13 +1,16 @@
-const Brand = require('../models/brand.model');
-const Product = require('../models/product.model');
-const { Op, where } = require('sequelize');
-const RecommendedProduct = require('../models/recommended-product.model');
-const Milestone = require('../models/milestone.model');
+const { Brand, Milestone, Product } = require('../models');
+const { Op } = require('sequelize');
 
 class ProductRepository {
     static async getAllProducts(params) {
         try {
-            const { search, milestoneId, filter, sort, page = 1, pageSize = 10 } = params;
+            const { search, milestone, filter, sort, page = 1, pageSize = 10 } = params;
+
+            const milestoneFilter = milestone ? {
+                [Op.or]: [
+                    { minMonth: milestone.minMonth || milestone.minMonth == 0 ? milestone.minMonth : null },
+                    { maxMonth: milestone.maxMonth ? milestone.maxMonth : null }]
+            } : {}
 
             const whereClause = {};
             if (search) {
@@ -26,22 +29,22 @@ class ProductRepository {
                 include: [
                     {
                         model: Brand,
-                        as: 'brand',
                     },
                     {
                         model: Milestone,
-                        as: 'Milestones',
-                        where: milestoneId ? { milestoneId } : {}
+                        where: milestoneFilter,
+                        attributes: ['milestoneId', 'minMonth', 'maxMonth'],
                     }
                 ],
+                attributes: { exclude: ['brand_id', 'brandId'] },
                 order: sort ? [sort] : [['createdAt', 'ASC']],
                 offset: (page - 1) * pageSize,
                 limit: pageSize,
             };
-            console.log(options);
-            const { count, rows } = await Product.findAndCountAll(options);
 
+            const { count, rows } = await Product.findAndCountAll(options);
             return { products: rows, total: count };
+
         } catch (error) {
             throw new Error(error.message)
         }
@@ -64,7 +67,7 @@ class ProductRepository {
             }
             const options = {
                 where: [{ brand_id: id }, whereClause],
-                include: [{ model: Brand, as: 'brand' }],
+                include: [{ model: Brand, }],
                 order: sort ? [sort] : [['createdAt', 'ASC']],
                 offset: (page - 1) * pageSize,
                 limit: pageSize,
@@ -86,16 +89,14 @@ class ProductRepository {
                     include: [
                         {
                             model: Brand,
-                            as: 'brand',
                             required: false,
                             attributes: ['brandId', 'name', 'description'],
                         },
                         {
                             model: Milestone,
-                            as: 'Milestones',
                         }
                     ],
-                    attributes: { exclude: ['brand_id'] },
+                    attributes: { exclude: ['brand_id', 'brandId'] },
                 }
             );
             if (product) {
@@ -111,13 +112,8 @@ class ProductRepository {
 
     static async createProduct(product) {
         try {
-            const brand = await Brand.findByPk(product.brandId);
-            if (brand) {
-                const result = await Product.create(product);
-                return result;
-            }
-            else throw new Error('Brand Not Found!');
-
+            const result = await Product.create(product);
+            return result;
         } catch (error) {
             throw new Error(error.message);
         }

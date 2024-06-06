@@ -37,24 +37,4 @@ RecommendedProduct.init({
     timestamps: false
 });
 
-RecommendedProduct.belongsTo(Product, {
-    foreignKey: 'productId',
-    as: "product"
-});
-Product.belongsToMany(Milestone, {
-    through: RecommendedProduct,
-    foreignKey: 'productId',
-    otherKey: 'milestoneId'
-});
-
-RecommendedProduct.belongsTo(Milestone, {
-    foreignKey: 'milestoneId',
-    as: "milestone"
-});
-Milestone.belongsToMany(Product, {
-    through: RecommendedProduct,
-    foreignKey: 'milestoneId',
-    otherKey: 'productId'
-});
-
 module.exports = RecommendedProduct;

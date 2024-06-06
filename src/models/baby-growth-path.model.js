@@ -1,25 +1,25 @@
-const { DataTypes, Model } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const TakeCarePost = require('./take-care-post.model');
 const GrowthPath = require('./growth-path.model');
+const Baby = require('../models/baby.model');
 
-class GrowthPathPost extends Model { }
+class BabyGrowthPath extends Model { }
 
-GrowthPathPost.init({
-    growthPathPostId: {
+BabyGrowthPath.init({
+    babyGrowthPathId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        field: 'growth_path_post_id'
+        field: 'baby_growth_path_id',
     },
-    postId: {
+    babyId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'take_care_post',
-            key: 'post_id'
+            model: 'baby',
+            key: 'baby_id'
         },
-        field: 'post_id'
+        field: 'baby_id',
     },
     growthPathId: {
         type: DataTypes.INTEGER,
@@ -28,13 +28,13 @@ GrowthPathPost.init({
             model: 'growth_path',
             key: 'growth_path_id'
         },
-        field: 'growth_path_id'
-    }
+        field: 'growth_path_id',
+    },
 }, {
     sequelize,
-    modelName: 'GrowthPathPost',
-    tableName: 'growth_path_post',
+    modelName: 'BabyGrowthPath',
+    tableName: 'baby_growth_path',
     timestamps: false
 });
 
-module.exports = GrowthPathPost;
+module.exports = BabyGrowthPath;

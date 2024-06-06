@@ -31,6 +31,10 @@ Baby.init({
         validate: {
             isInt: {
                 msg: 'Must be an integer number!'
+            },
+            min: {
+                args: [1],
+                msg: 'Must be a positive number!'
             }
         }
     },
@@ -40,6 +44,10 @@ Baby.init({
         validate: {
             isDecimal: {
                 msg: 'Must be an decimal number!'
+            },
+            min: {
+                args: [0.01],
+                msg: 'Must be a positive number!'
             }
         }
     },
@@ -71,6 +79,5 @@ Baby.init({
     timestamps: false,
 });
 
-Baby.belongsTo(Account, { foreignKey: 'accountId', as: 'account' });
 
 module.exports = Baby;

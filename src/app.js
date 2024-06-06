@@ -17,7 +17,8 @@ app.use('/api/product', apiRoutes.ProductRoutes);
 app.use('/api/baby', apiRoutes.BabyRoutes);
 app.use('/api/grow-path', apiRoutes.GrowthPathRoutes);
 app.use('/api/take-care-post', apiRoutes.PostRoutes);
-
+app.use('/api/milestone', apiRoutes.MilesRoutes);
+app.use('/api/order', apiRoutes.OrderRoutes);
 
 
 module.exports = app;
