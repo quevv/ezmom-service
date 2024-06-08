@@ -19,6 +19,6 @@ app.use('/api/grow-path', apiRoutes.GrowthPathRoutes);
 app.use('/api/take-care-post', apiRoutes.PostRoutes);
 app.use('/api/milestone', apiRoutes.MilesRoutes);
 app.use('/api/order', apiRoutes.OrderRoutes);
-
+app.use('/api/voucher', apiRoutes.VoucherRoutes);
 
 module.exports = app;

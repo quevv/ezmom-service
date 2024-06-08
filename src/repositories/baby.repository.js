@@ -66,7 +66,6 @@ class BabyRepository {
 
     static async updateBaby(id, updatedData) {
         try {
-            console.log(updatedData);
             const baby = await Baby.findByPk(id);
             if (!baby) {
                 throw new Error('Baby not found');

@@ -26,7 +26,7 @@ const getAllProducts = async (req, res) => {
         });
     }
     catch (error) {
-        res.json({ error: error.message });
+        res.status(500).json({ error: error.message });;
     }
 }
 
@@ -56,12 +56,14 @@ const getProductsByBrand = async (req, res) => {
 const getProductById = async (req, res) => {
     try {
         const { id } = req.params;
-        const products = await ProductService.getProductById(id);
-        console.log(typeof (products.price));
-        res.status(200).json(products);
+        const product = await ProductService.getProductById(id);
+        res.status(200).json({
+            msg: "Fetching product success!",
+            product,
+        });
     }
     catch (error) {
-        res.json({ error: error.message });
+        res.status(500).json({ error: error.message });;
     }
 }
 

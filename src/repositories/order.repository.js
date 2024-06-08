@@ -34,7 +34,6 @@ class OrderRepository {
             }
 
             const { rows, count } = await Order.findAndCountAll(options);
-            console.log(count);
             return { orders: rows, total: count };
         } catch (error) {
             throw new Error(error.message);
