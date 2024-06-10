@@ -8,6 +8,8 @@ const PostRoutes = require('./take-care-post.routes');
 const MilesRoutes = require('./milestone.routes');
 const OrderRoutes = require('./order.routes');
 const VoucherRoutes = require('./voucher.routes');
+const UserVoucherRoutes = require('./user-voucher.routes');
+
 
 module.exports = {
     AccountRoutes,
@@ -20,4 +22,5 @@ module.exports = {
     MilesRoutes,
     OrderRoutes,
     VoucherRoutes,
+    UserVoucherRoutes,
 }

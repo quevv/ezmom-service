@@ -20,5 +20,6 @@ app.use('/api/take-care-post', apiRoutes.PostRoutes);
 app.use('/api/milestone', apiRoutes.MilesRoutes);
 app.use('/api/order', apiRoutes.OrderRoutes);
 app.use('/api/voucher', apiRoutes.VoucherRoutes);
+app.use('/api/user-voucher', apiRoutes.UserVoucherRoutes);
 
 module.exports = app;
