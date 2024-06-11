@@ -21,5 +21,6 @@ app.use('/api/milestone', apiRoutes.MilesRoutes);
 app.use('/api/order', apiRoutes.OrderRoutes);
 app.use('/api/voucher', apiRoutes.VoucherRoutes);
 app.use('/api/user-voucher', apiRoutes.UserVoucherRoutes);
+app.use('/api/order-voucher', apiRoutes.OrderVoucherRoutes);
 
 module.exports = app;

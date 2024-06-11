@@ -9,7 +9,7 @@ const MilesRoutes = require('./milestone.routes');
 const OrderRoutes = require('./order.routes');
 const VoucherRoutes = require('./voucher.routes');
 const UserVoucherRoutes = require('./user-voucher.routes');
-
+const OrderVoucherRoutes = require('./order-voucher.routes');
 
 module.exports = {
     AccountRoutes,
@@ -23,4 +23,5 @@ module.exports = {
     OrderRoutes,
     VoucherRoutes,
     UserVoucherRoutes,
+    OrderVoucherRoutes,
 }

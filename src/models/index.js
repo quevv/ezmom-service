@@ -13,6 +13,7 @@ const GrowthPathPost = require('./growth-path-post.model');
 const TakeCarePost = require('./take-care-post.model');
 const Voucher = require('./voucher.model');
 const UserVoucher = require('./user-voucher.model');
+const OrderVoucher = require('./order-voucher.model');
 
 // Define relationships
 Account.hasMany(Order, { foreignKey: 'account_id' });
@@ -89,6 +90,27 @@ UserVoucher.belongsTo(Voucher, {
     as: 'voucher'
 });
 
+// Order Voucher
+Order.belongsToMany(Voucher, {
+    through: OrderVoucher,
+    foreignKey: 'orderId',
+    otherKey: 'voucherId',
+});
+OrderVoucher.belongsTo(Order, {
+    foreignKey: 'orderId',
+    as: 'order'
+});
+
+Voucher.belongsToMany(Order, {
+    through: OrderVoucher,
+    foreignKey: 'voucherId',
+    otherKey: 'orderId',
+});
+OrderVoucher.belongsTo(Voucher, {
+    foreignKey: 'voucherId',
+    as: 'voucher'
+});
+
 module.exports = {
     Account,
     Product,
@@ -103,5 +125,6 @@ module.exports = {
     GrowthPathPost,
     TakeCarePost,
     UserVoucher,
+    OrderVoucher,
     sequelize
 };

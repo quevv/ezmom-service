@@ -1,4 +1,3 @@
-const { create } = require('../models/brand.model');
 const UserVoucherService = require('../services/user-voucher.service');
 
 const getAllUserVouchers = async (req, res) => {
